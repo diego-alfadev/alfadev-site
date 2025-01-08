@@ -1,5 +1,5 @@
 # AlfaDev Site
-![https://astro.build/](https://img.shields.io/badge/astro-5.0.0-beta.12-orange?style=flat&logo=astro&logoColor=orange&link=https%3A%2F%2Fastro.build%2F)
+![https://astro.build/](https://img.shields.io/badge/astro-5.0.0-beta?style=flat&logo=astro&logoColor=orange&color=orange)
 ![https://www.typescriptlang.org/](https://img.shields.io/badge/typescript-5.6.3-blue?style=flat&logo=typescript&link=https%3A%2F%2Fwww.typescriptlang.org%2F)
 ![https://tailwindcss.com/](https://img.shields.io/badge/tailwind-3.4.14-cyan?style=flat&logo=tailwindcss&link=https%3A%2F%2Ftailwindcss.com%2F)
 
