@@ -1,0 +1,90 @@
+---
+import FeatherIcon from "@/components/react/FeatherIcon";
+import "@/styles/counter.scss";
+
+type Props = {
+  counter: {
+    number: number;
+    icon?: string;
+    color?: string;
+    name: string;
+  }[];
+};
+
+const { counter } = Astro.props;
+---
+
+<div class="">
+  <div
+    class="counter flex justify-center row mx-0 rounded-[20px] bg-surface px-10 shadow-lg lg:py-12"
+  >
+    <div class="glow"></div>
+    {
+      counter.map((item: any) => (
+        <div class="border-border col-4 sm:col-4 lg:col-3  px-2 md:px-10 py-10 text-center lg:border-r lg:py-0 last:lg:border-none">
+          <h3 class="flex items-center justify-center gap-1">
+            <span class="count" aria-valuenow={item.number}>
+              0
+            </span>
+            <span
+              class={
+                "text-primary inline-flex items-center justify-center ml-2"
+              }
+            >
+              <FeatherIcon
+                name={item.icon ?? "plus"}
+                color={item.color}
+                size={20}
+                client:load
+              />
+            </span>
+          </h3>
+          <p>{item.name}</p>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script is:inline>
+  const cards = document.querySelectorAll(".counter");
+
+  cards.forEach((card) => {
+    card.addEventListener("mousemove", handleMouseMove);
+  });
+
+  function handleMouseMove(e) {
+    const rect = this.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left - rect.width / 2;
+    const mouseY = e.clientY - rect.top - rect.height / 2;
+
+    // console.log(mouseX, mouseY);
+    let angle = Math.atan2(mouseY, mouseX) * (180 / Math.PI);
+
+    angle = (angle + 360) % 360;
+
+    this.style.setProperty("--start", angle + 60);
+  }
+
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    const counters = document.querySelectorAll(".count");
+    const speed = 200;
+    counters.forEach((counter) => {
+      const animate = () => {
+        const value = +counter.getAttribute("aria-valuenow");
+        const data = +counter.innerText;
+
+        const time = value / speed;
+        if (data < value) {
+          counter.innerText = Math.ceil(data + time);
+          setTimeout(animate, 1);
+        } else {
+          counter.innerText = value;
+        }
+      };
+
+      animate();
+    });
+  });
+</script>

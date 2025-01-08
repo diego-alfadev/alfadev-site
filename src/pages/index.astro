@@ -1,0 +1,371 @@
+---
+import CounterComponent from "@/components/CounterComponent.astro";
+import EnterpriseCard from "@/components/enterprises/EnterpriseCard.astro";
+import Button from "@/components/LinkButton.astro";
+import ProjectCard from "@/components/projects/ProjectCard.astro";
+import Caroussel from "@/components/react/Caroussel";
+import DiscoverBox from "@/components/react/DiscoverBox";
+import HeartIcon from "@/components/react/HeartIcon";
+import TecnologiesBanner from "@/components/react/index/TechnologiesBanner";
+import TechnologyBadge from "@/components/technologies/TechonologyBadge.astro";
+import social_config from "@/config/social.json";
+import type { Enterprise } from "@/content/types/entities.types";
+import {
+  fillEntries,
+  fillProjectEntries,
+} from "@/content/types/entities.types";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import dayjs from "dayjs";
+import dayOfYear from "dayjs/plugin/dayOfYear";
+import { Fragment } from "react";
+dayjs.extend(dayOfYear);
+
+const lang = getLangFromUrl(Astro.url);
+const STRINGS = useTranslations(lang).home;
+
+const technologies = (await getCollection("technologies")).map(
+  (tech) => tech.data
+);
+const projects = (
+  await fillProjectEntries(await getCollection("projects"))
+).map((project) => project.data);
+
+//@ts-ignore
+const tech_types = Object.groupBy(technologies, (item) => item.type);
+
+const enterprises = (
+  await fillEntries<Enterprise>(await getCollection("enterprises"), {
+    technologies: "technologies",
+  })
+).map((enterprise) => enterprise.data);
+---
+
+<Base>
+  <!-- banner -->
+  <section class="animate-fade-in">
+    <section class="section relative mt-0">
+      <div class="container">
+        <div class=`row items-center`>
+          <div class={`hidden md:block md:col-3`}>
+            <div class="relative">
+              <div class="mb-10 md:mb-0">
+                <Image
+                  class="object-contain"
+                  alt="Diego Alfaro Sáez Portait"
+                  style={{
+                    maskImage:
+                      "radial-gradient(ellipse 120% 95% at 50% 45%, black 40%, transparent 50%);",
+                  }}
+                  src={"/images/pfp_v2.webp"}
+                  width={350}
+                  height={450}
+                  loading={"eager"}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class=`col-12 md:col-9`>
+            <div class="flex flex-row">
+              <div class="typewriter">
+                <h1
+                  class="text-4xl md:text-5xl lg:text-6xl !leading-[2.5rem] md:!leading-[3.5rem] lg:!leading-[4.5rem]"
+                >
+                  Diego Alfaro Sáez
+                </h1>
+                <span
+                  style="opacity: 0; transform-origin: 70% 70%; animation-name: fade-in, wave; animation-delay: 1.5s, 2s; animation-duration: .5s, 2s; animation-fill-mode: forwards; animation-iteration-count: 1, infinite;"
+                  class="text-3xl md:text-5xl lg:text-6xl">👋</span
+                >
+              </div>
+            </div>
+            <h3 class="mt-4">{markdownify(STRINGS.banner.title)}</h3>
+            <p
+              class="mt-6 prose-lg"
+              set:html={markdownify(STRINGS.banner.presentation)}
+            />
+
+            <div class={`block md:hidden`}>
+              <div class="relative">
+                <div class="mt-2">
+                  <Image
+                    class="object-contain w-1/2 mr-auto ml-auto"
+                    alt="section-image"
+                    style={{
+                      maskImage:
+                        "radial-gradient(ellipse 120% 95% at 50% 45%, black 40%, transparent 50%);",
+                    }}
+                    src={"/images/pfp_v2.png"}
+                    width={350}
+                    height={450}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex flex-wrap gap-2 mt-[-3rem] z-50 md:mt-8 justify-around md:justify-start"
+            >
+              <Button
+                label={STRINGS.banner.buttons.cv}
+                href="/docs/DAS_cv_17_12_2024.pdf"
+                icon="_FileText"
+                addClasses="z-10"
+                color="primary"
+                mode="solid"
+              />
+              <Button
+                href={social_config.github}
+                target="_blank"
+                addClasses="bg-gray-900 text-white z-10"
+                icon="_GitHub"
+              >
+                {STRINGS.banner.buttons.github}
+              </Button>
+              <Button
+                label={STRINGS.banner.buttons.linkedin}
+                href={social_config.linkedin}
+                target={"_blank"}
+                icon="linkedin"
+                mode="outline"
+                color="primary"
+                addClasses="z-10"
+              />
+              <!-- <div class="absolute w-full bottom-[1.75rem]"> -->
+
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section class="container mb-40">
+    <div class="row">
+      <div class="col-12">
+        <CounterComponent
+          counter={[
+            {
+              number: 20,
+              icon: "code",
+              name: STRINGS.counter.projects,
+            },
+            {
+              number: dayjs().year() - 2018,
+              icon: "star",
+              name: STRINGS.counter.years,
+            },
+            {
+              number:
+                3 * dayjs().dayOfYear() + 3 * 365 * (dayjs().year() - 1 - 2018),
+              icon: "coffee",
+              name: STRINGS.counter.coffee,
+            },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Toolbox -->
+  <section class="container mb-40">
+    <div class="row">
+      <div class="col-12 md:col-6 pb-10">
+        <div class="sticky top-32">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl !leading-[2.5rem] md:!leading-[3.5rem] lg:!leading-[4.5rem] mb-8"
+          >
+            {STRINGS.technologies.title}
+          </h1>
+          <p
+            class="prose-p"
+            set:html={markdownify(STRINGS.technologies.description)}
+          />
+        </div>
+      </div>
+      <div class="col-12 md:col-6 md:mr-auto md:ml-auto">
+        <DiscoverBox
+          client:load
+          image_top="/images/toolbox-top.svg"
+          image_bottom="/images/toolbox-bottom.svg"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-12 pb-5">
+                <div class="flex flex-row flex-wrap gap-6">
+                  <div class="flex flex-col gap-2">
+                    <h2 class="text-2xl mb-2">Lenguajes</h2>
+                    <div class="flex flex-col gap-4">
+                      {
+                        tech_types["language"]
+                          ?.filter((tech) => tech.favorite)
+                          ?.sort(
+                            (a, b) =>
+                              (b.ratings?.love ?? 0) - (a.ratings?.love ?? 0)
+                          )
+                          .map((tech) => (
+                            <div class="flex flex-row flex-wrap gap-4">
+                              <TechnologyBadge technology={tech} />
+                              <div class="flex flex-row gap-2 love-rating">
+                                {Array.from({ length: 5 }, (_, i) => (
+                                  <HeartIcon
+                                    index={i + 1}
+                                    loveLevel={tech.ratings?.love ?? 0}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          ))
+                      }
+                    </div>
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <h2 class="text-2xl mb-2">Frameworks</h2>
+                    <div class="flex flex-row flex-wrap gap-4">
+                      {
+                        tech_types["library"]?.map((tech) => (
+                          <TechnologyBadge technology={tech} />
+                        ))
+                      }
+                      {
+                        tech_types["framework"]?.map((tech) => (
+                          <TechnologyBadge technology={tech} />
+                        ))
+                      }
+                    </div>
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <h2 class="text-2xl mb-2">Bases de Datos</h2>
+                    <div class="flex flex-row flex-wrap gap-4">
+                      {
+                        tech_types["database"]?.map((tech) => (
+                          <TechnologyBadge technology={tech} />
+                        ))
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </DiscoverBox>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-full mb-40">
+    <TecnologiesBanner
+      baseVelocity={-5}
+      client:load
+      technologies={technologies}
+    />
+    <TecnologiesBanner
+      baseVelocity={5}
+      client:load
+      technologies={technologies}
+    />
+  </section>
+
+  <!-- BriefCase -->
+  <section class="container">
+    <div class="row">
+      <div class="md:hidden block col-12 md:col-6 pb-10">
+        <div class="sticky top-32">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl !leading-[2.5rem] md:!leading-[3.5rem] lg:!leading-[4.5rem] mb-8"
+          >
+            {STRINGS.companies.title}
+          </h1>
+          <p
+            class="prose-p"
+            set:html={markdownify(STRINGS.companies.description)}
+          />
+        </div>
+      </div>
+      <div class="col-12 md:col-6 md:mr-auto md:ml-auto">
+        <DiscoverBox
+          client:load
+          image_top="/images/briefcase-top.svg"
+          image_bottom="/images/briefcase-bottom.svg"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-12 py-10 relative">
+                <Caroussel client:load>
+                  {
+                    enterprises.map((enterprise) => (
+                      <EnterpriseCard enterprise={enterprise} />
+                    ))
+                  }
+                </Caroussel>
+              </div>
+            </div>
+          </div>
+        </DiscoverBox>
+      </div>
+      <div class="hidden md:block col-12 md:col-6 pb-10">
+        <div class="sticky top-32">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl !leading-[2.5rem] md:!leading-[3.5rem] lg:!leading-[4.5rem] mb-8"
+          >
+            {STRINGS.companies.title}
+          </h1>
+          <p
+            class="prose-p"
+            set:html={markdownify(STRINGS.companies.description)}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="container mb-40">
+    <div class="row">
+      <div class="col-12">
+        <h1
+          class="text-4xl md:text-5xl lg:text-6xl !leading-[2.5rem] md:!leading-[3.5rem] lg:!leading-[4.5rem] mb-8"
+        >
+          {STRINGS.projects.title}
+        </h1>
+        <p
+          class="prose-p mb-10"
+          set:html={markdownify(STRINGS.projects.description)}
+        />
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container my-16 lg:mb-40">
+    <div class="row">
+      <div class="col-12">
+        <div
+          class="flex flex-col justify-center bg-yellow-300/90 px-6 py-8 rounded-xl text-center"
+        >
+          <h3 class="text-yellow-800 mb-4">
+            {
+              lang == "es"
+                ? "🚧 Este sitio está en construcción 🚧"
+                : "🚧 This site is under construction 🚧 "
+            }
+          </h3>
+          <p class="text-yellow-700 prose-xl">
+            {
+              lang == "es"
+                ? "Aún estoy trabajando en él. Puedes ver mi trabajo en los proyectos más recientes, aunque no están todos."
+                : "I'm still working on it. You can see my work in the most recent projects, although they are not all."
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

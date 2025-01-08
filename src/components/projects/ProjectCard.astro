@@ -1,0 +1,75 @@
+---
+
+import Badge from "../Badge.astro";
+import { getLangFromUrl, useTranslate } from "@/i18n/utils";
+import type { Project } from "@/content/types/entities.types";
+import type { Translated } from "@/i18n/types/i18n.types";
+import TechonologyBadge from "../technologies/TechonologyBadge.astro";
+import dayjs from "dayjs";
+
+type Props = {
+  project: Project;
+};
+
+const { project } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const translate = useTranslate(lang);
+const translated: Translated<Project> = await translate(project);
+
+---
+
+<a href={`projects/${project.id}`}>
+  <div class="project-card">
+    <div class="card-header">
+      {
+        project.logo && (
+          <div class="logo">
+            <img
+              src={project.logo}
+              alt={translated?.title}
+              class="object-contain h-full w-full"
+            />
+          </div>
+        )
+      }
+      <h2 class="title">{translated.title}</h2>
+    </div>
+    <div class="badges mt-2 flex flex-row gap-3 items-center">
+      <p class="text-sm text-text-disabled">{dayjs(translated.started_at).format("MMM YYYY")}
+      {
+        translated.type && (
+          <p
+            class={`badge ${translated.type == "personal" ? "accent" : "primary"} text-white first-letter:capitalize`}
+          >
+            {translated.type}
+          </p>
+        )
+      }
+    </div>
+    <div class="body">
+      <p>{translated.short_description}</p>
+    </div>
+    <div class="tech-content">
+      {/* <p class="font-medium text-text-secondary">Tech</p> */}
+      <div class="tech">
+        {
+          translated.technologies.map((tech) => {
+            return <TechonologyBadge technology={tech} />;
+          })
+        }
+      </div>
+    </div>
+    <div class="roles-content">
+      {/* <p class="font-medium text-text-secondary">Roles</p> */}
+      <div class="roles">
+        {
+          translated.tags.map((tag) => (
+            <Badge class="border border-text-secondary text-text-secondary">
+              {tag}
+            </Badge>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</a>

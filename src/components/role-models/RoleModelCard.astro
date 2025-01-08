@@ -1,0 +1,63 @@
+---
+import type { RoleModel } from "@/content/types/entities.types";
+import { Image } from "astro:assets";
+import FeatherIcon from "../react/FeatherIcon";
+import { getLangFromUrl, useTranslate } from "@/i18n/utils";
+
+export type Props = {
+  role_model: RoleModel;
+};
+
+const { role_model }: Props = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const translate = useTranslate(lang);
+
+const role_model_translated = await translate(role_model);
+---
+
+<div
+  class="glow-card"
+  style=`${role_model.color ? '--glow-color: '+role_model.color : ''}`
+>
+  {
+    role_model.icon && (
+      <div class="z-10 absolute bottom-2 left-2 h-14 w-14 bg-background/30 p-1 rounded-full">
+        <Image
+          class="object-contain w-auto h-12 max-w-12 "
+          alt={role_model.name}
+          src={role_model.icon}
+          width={50}
+          height={50}
+        />
+      </div>
+    )
+  }
+  <div class="inner">
+    <div>
+      <div class="flex flex-row items-center mb-5">
+        <h3 class="text-2xl prose-p font-bold">{role_model.name}</h3>
+      </div>
+      <div class="card-image">
+        <Image
+          class="object-cover"
+          alt={role_model.name}
+          src={role_model.avatar}
+          width={200}
+          height={350}
+        />
+      </div>
+      <div class="card-content mb-5">
+        <p class="prose-p text-sm text-white" set:html={role_model_translated.description} />
+      </div>
+      <div class="flex flex-row overflow-x-scroll">
+        {
+          role_model.social.map(({name, url}) => (
+            <a href={url} target="_blank" class="mr-2">
+              <FeatherIcon name={name} color="white" size="24" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>

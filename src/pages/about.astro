@@ -1,0 +1,178 @@
+---
+import PageHeader from "@/components/core/PageHeader.astro";
+import Section from "@/components/core/Section.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import Button from "@/components/LinkButton.astro";
+
+import social_config from "@/config/social.json";
+import { getCollection } from "astro:content";
+import RoleModelCard from "@/components/role-models/RoleModelCard.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const STRINGS = useTranslations(lang).about;
+
+const role_models =
+  (await getCollection("role-models")).map((r) => r.data) || [];
+---
+
+<Base entry_keys={["pages", "about"]}>
+  <section class="animate-fade-in">
+    <section class="section relative mt-0">
+      <div class="container">
+        <div class=`row items-center`>
+          <div class={`col-12 md:col-4`}>
+            <div class="relative">
+              <div class="mb-10 md:mb-0">
+                <Image
+                  class="object-contain"
+                  alt="Diego Alfaro Sáez Portait"
+                  style={{
+                    maskImage:
+                      "radial-gradient(ellipse 90% 104% at 45% 52%, black 15%, transparent 52%)",
+                  }}
+                  src={"/images/about_me.webp"}
+                  width={450}
+                  height={550}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class=`col-12 md:col-8`>
+            <div class="typewriter">
+              <h1
+                class="text-4xl md:text-5xl lg:text-6xl !leading-[2.5rem] md:!leading-[3.5rem] lg:!leading-[4.5rem] text-center md:text-left mb-8"
+              >
+                {STRINGS.about.title}
+              </h1>
+            </div>
+            <p
+              class="mt-6 prose-p"
+              set:html={markdownify(STRINGS.about.description[0])}
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p
+              class="prose-p"
+              set:html={markdownify(STRINGS.about.description[1])}
+            />
+          </div>
+        </div>
+        <div class="row mt-10">
+          <div class="col-12 flex justify-center gap-2">
+            <Button
+              label={STRINGS.about.contact_me}
+              href={social_config.linkedin}
+              target={"_blank"}
+              icon="linkedin"
+              color="primary"
+            />
+            <Button
+              label={STRINGS.about.collaborate}
+              href={"mailto:" + social_config.email}
+              target={"_blank"}
+              icon="mail"
+              color="white"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section class="container mb-32">
+    <div class="row mb-10">
+      <div class="col-12">
+        <h1 class="text-center mb-8">{STRINGS.role_models.title}</h1>
+        <p class="prose-p text-center">
+          {markdownify(STRINGS.role_models.description[0])}
+        </p>
+      </div>
+    </div>
+    <div class="glow-grid-cards">
+      <div class="grid glow-grid">
+        {
+          role_models.sort((a, b) => a.order ?? 10 - (b.order ?? 10))
+            .map((role_model) => <RoleModelCard role_model={role_model} />)
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="animate-fade-in">
+    <section class="section relative mt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="text-center mb-8">{STRINGS.mission.title}</h1>
+            <p
+              class="prose-p text-center"
+              set:html={markdownify(STRINGS.mission.description[0])}
+            />
+          </div>
+        </div> -->
+  <!-- <div class=`row items-center`>
+          <div class=`col-12 md:col-7`>
+            <p
+              class="mt-6 prose-p"
+              set:html={markdownify(STRINGS.mission.description[1])}
+            />
+          </div>
+          <div class={`col-12 md:col-5`}>
+            <div class="relative">
+              <div class="mb-10 md:mb-0">
+                <Image
+                  class="object-contain"
+                  alt="section-image"
+                  src={"/images/logo_v5_xl_pfp.png"}
+                  width={350}
+                  height={450}
+                />
+              </div>
+            </div>
+          </div>
+        </div> -->
+  <!-- </div>
+    </section>
+  </section> -->
+  <script>
+    const cards = document.querySelectorAll(".glow-card");
+    cards.forEach((card) => {
+      const blob = document.createElement("div");
+      blob.classList.add("blob");
+      card.appendChild(blob);
+
+      const fakeBlob = document.createElement("div");
+      fakeBlob.classList.add("fake-blob");
+      card.appendChild(fakeBlob);
+    });
+
+    document.addEventListener("mousemove", (ev) => {
+      cards.forEach((e) => {
+        const blob = e.querySelector(".blob");
+        const fblob = e.querySelector(".fake-blob");
+        const rec = fblob?.getBoundingClientRect();
+
+        if(!rec || !rec.left || !rec.top || !rec.width || !rec.height) return;
+
+        blob?.animate(
+          [
+            {
+              transform: `translate(${ev.clientX - rec?.left - rec.width / 2}px,${ev.clientY - rec.top - rec.height / 2}px)`,
+            },
+          ],
+          {
+            duration: 300,
+            fill: "forwards",
+          }
+        );
+      });
+    });
+  </script>
+</Base>

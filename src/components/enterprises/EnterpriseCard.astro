@@ -1,0 +1,36 @@
+---
+import type { Enterprise } from "@/content/types/entities.types";
+import type { Translated } from "@/i18n/types/i18n.types";
+import { getLangFromUrl, useTranslate } from "@/i18n/utils";
+import { Image } from "astro:assets";
+
+type Props = {
+  enterprise: Enterprise;
+};
+
+const { enterprise } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const translate = useTranslate(lang);
+const translated: Translated<Enterprise> = await translate(enterprise);
+---
+
+<a href={`enterprises/${enterprise.id}`}>
+  <div>
+    <div class="flex flex-col items-center">
+      {
+        translated.logo && (
+          <div class="logo">
+            <Image
+              width={300}
+              height={250}
+              src={translated.logo}
+              alt={translated?.name}
+              class="object-contain rounded"
+            />
+          </div>
+        )
+      }
+      <!-- <h2 class="title">{translated.name}</h2> -->
+    </div>
+  </div>
+</a>

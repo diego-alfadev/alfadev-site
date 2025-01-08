@@ -1,0 +1,34 @@
+{
+  "main": [
+    {
+      "name": {
+        "es": "Inicio",
+        "en": "Home"
+      },
+      "url": "/"
+    },
+    {
+      "name": {
+        "es": "Proyectos",
+        "en": "Projects"
+      },
+      "url": "/projects"
+    },
+    {
+      "name": {
+        "es": "Sobre mi",
+        "en": "About Me"
+      },
+      "url": "/about"
+    }
+  ],
+  "footer": [
+    {
+      "name": {
+        "es": "Sobre mi",
+        "en": "About Me"
+      },
+      "url": "/about"
+    }
+  ]
+}

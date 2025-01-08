@@ -1,0 +1,404 @@
+// section style
+.section {
+  @apply my-14;
+}
+
+// If .section are surrounded by a .multi-section class, make even sections have a flex direction of row-reverse
+.multi-section {
+  & > .section:nth-child(even):not(.custom-position) .row {
+    @apply md:flex-row-reverse;
+  }
+}
+
+// badge
+.badge {
+  @apply max-w-fit relative rounded-full px-[0.8rem] py-[0.25rem] text-xs font-semibold text-text;
+  &.primary {
+    @apply bg-primary text-white;
+  }
+  &.secondary {
+    @apply bg-secondary text-white;
+  }
+  &.accent {
+    @apply bg-accent text-white;
+  }
+  &.danger {
+    @apply bg-danger text-white;
+  }
+  &.success {
+    @apply bg-success text-white;
+  }
+  &.warning {
+    @apply bg-warning text-white;
+  }
+  &.info {
+    @apply bg-info text-white;
+  }
+  &.light {
+    @apply bg-white text-text;
+  }
+  &.dark {
+    @apply bg-surface text-text-secondary;
+  }
+}
+
+// container
+.container {
+  @apply mx-auto max-w-[1202px] px-4;
+}
+
+// form style
+.form-inputs * {
+  @apply mb-5 leading-10;
+}
+
+// social icon style
+.social-icons {
+  li {
+    @apply mr-2 inline-block;
+    a {
+      @apply inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-center transition-all duration-200 hover:bg-primary;
+
+      svg {
+        @apply m-auto h-11 fill-gray-600 text-xl;
+      }
+
+      path {
+        @apply transition-all duration-200;
+      }
+
+      &:hover path {
+        @apply fill-white;
+      }
+    }
+  }
+}
+
+//footer
+.footer {
+  h6 {
+    @apply mb-4 font-primary font-semibold lg:mb-8;
+  }
+
+  p {
+    @apply text-sm;
+  }
+
+  li > a {
+    @apply text-sm hover:text-primary hover:underline;
+  }
+}
+
+//review-carousel
+.review {
+  @apply mx-[0.9rem] my-10 rounded-xl bg-surface px-3 py-6 pb-16 text-center shadow;
+
+  &-author-avatar {
+    @apply mx-auto -mt-12 h-[90px] w-[90px] -translate-y-5 rounded-full p-0.5;
+  }
+}
+.review-rating {
+  &.five {
+    svg {
+      @apply fill-secondary text-secondary;
+    }
+  }
+
+  &.four {
+    svg {
+      &:not(:last-child) {
+        @apply fill-secondary text-secondary;
+      }
+      &:nth-child(5) {
+        @apply fill-gray-300 text-gray-300;
+      }
+    }
+  }
+
+  &.three {
+    svg {
+      @apply fill-secondary text-secondary;
+
+      &:last-child {
+        @apply fill-gray-300 text-gray-300;
+      }
+
+      &:nth-child(4) {
+        @apply fill-gray-300 text-gray-300;
+      }
+    }
+  }
+
+  &.two {
+    svg {
+      &:first-child {
+        @apply fill-secondary text-secondary;
+      }
+
+      &:nth-child(2) {
+        @apply fill-secondary text-secondary;
+      }
+    }
+  }
+
+  &.one {
+    svg {
+      &:first-child {
+        @apply fill-secondary text-secondary;
+      }
+    }
+  }
+}
+
+.love-rating {
+  display: flex;
+  gap: 0.5rem;
+
+  .heart-icon {
+    width: 24px;
+    height: 24px;
+
+    svg {
+      // @apply text-gray-500; // Color base
+      fill: currentColor;
+    }
+  }
+}
+//footer
+.footer {
+  h6 {
+    @apply mb-4 font-primary font-semibold lg:mb-8;
+  }
+
+  p {
+    @apply text-sm;
+  }
+
+  li > a {
+    @apply text-sm hover:text-primary hover:underline;
+  }
+}
+
+.key-feature-grid {
+  p {
+    @apply mt-3 text-sm md:text-base break-all text-text-secondary;
+  }
+
+  .icon {
+    @apply h-6 w-6;
+
+    svg {
+      @apply text-secondary;
+    }
+  }
+}
+
+//changelogs
+.changelogs {
+  &-content {
+    // First child of the changelogs-content below a badge should have a margin-top of 6
+    > .badge + * {
+      @apply mt-8;
+    }
+    @apply relative shadow-lg rounded-xl bg-surface;
+    &::before {
+      @apply absolute -top-[38px] left-0 h-[18px] w-[18px] rounded-full border-4 border-secondary/70 bg-background content-[''] lg:-left-[49px] lg:top-0;
+    }
+
+    ul {
+      @apply list-disc pl-6 marker:text-text;
+
+      + .changelogs-tag {
+        @apply mt-6;
+      }
+
+      & > li {
+        @apply mb-3;
+
+        span {
+          @apply text-primary;
+        }
+      }
+    }
+  }
+
+  &-tag {
+    @apply mb-5 inline-block h-5 rounded px-1 py-0.5 text-xs text-red-500;
+  }
+}
+
+// form style
+.form-control,
+.form-select {
+  & option {
+    @apply text-text dark:text-text-contrast;
+  }
+  @apply h-[60px] w-full rounded-lg border-surface-contrast/50 text-text placeholder:text-text focus:border-primary focus:ring-transparent bg-transparent;
+}
+
+.form-inputs * {
+  @apply mb-5 leading-10;
+}
+
+.form-label {
+  @apply mb-2 block font-bold text-text;
+}
+
+select:invalid {
+  color: #b0b0b0 !important;
+}
+
+// Chips
+.chip {
+  @apply inline-flex items-center justify-center h-8 px-3 rounded-full bg-surface text-text-secondary border border-border;
+  &:not(:last-child) {
+    @apply mr-2;
+  }
+}
+
+.dark .glow-grid-cards .glow-card .inner {
+  --inner-bg-opacity: .3;
+}
+
+.glow-grid-cards {
+
+  .glow-grid {
+    @apply grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3
+  }
+  .glow-card {
+    --glow-opacity: .8;
+    --inner-bg-opacity: .6;
+    --blob-w: 110%;
+    --blob-h: 110%;
+    position: relative;
+    @apply rounded-lg;
+    color: #eceff1;
+    padding: .3rem;
+    overflow: hidden;
+
+
+
+    .inner {
+      @apply rounded-lg px-2 py-4 md:px-4 md:py-6 lg:px-6 lg:py-8 pl-16 lg:pl-24 xl:pl-32;
+      background-color: rgba(var(--glow-color, var(--secondary)), var(--inner-bg-opacity));
+      height: 100%;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-image {
+      @apply -left-8 lg:-left-16 xl:-left-28;
+      height: 100%;
+      position: absolute;
+      top: 1rem;
+      z-index: -1;
+      & img {
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        mask-image: linear-gradient(145deg, #ffff 0%, rgba(255, 255, 255, 0) 90%);
+      }
+    }
+    .blob {
+      filter: blur(40px);
+      position: absolute;
+      z-index: -2; /* to keep it at below everything else */
+      top: 0; /* to align it at top */
+      left: 0; /* to align it at left */
+      width: var(--blob-w); /* to set the width */
+      height: var(--blob-h); /* to set the width */
+      border-radius: 50%; /* to make it circular */
+      background:  rgba(var(--glow-color, var(--secondary)), var(--glow-opacity));
+    }
+    .fake-blob {
+      display: hidden;
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: var(--blob-w); /* to set the width */
+      height: var(--blob-h ); /* to set the width */
+      border-radius: 50%;
+    }
+
+  }
+
+
+
+}
+
+.typewriter {
+  display: flex;
+  justify-content: flex-start;
+  width: fit-content;
+
+  & h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    // font-family: monospace;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: 0.1em solid rgba(var(--text)); /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    // margin-inline: auto;
+    animation:
+      typing 1.5s steps(12),
+      blink-caret 0.75s 8 forwards;
+  }
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: rgba(var(--text));
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.wave {
+  animation: wave 1.5s infinite;
+}

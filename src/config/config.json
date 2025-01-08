@@ -1,0 +1,30 @@
+{
+  "site": {
+    "title": "AlfaDev",
+    "base_url": "https://alfadev.io",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.ico",
+    "logo": "/images/logo.png",
+    "logo_width": "47",
+    "logo_height": "47",
+    "logo_text": "AlfaDev"
+  },
+
+  "params": {
+    "footer_description": "Construyendo la web del futuro, línea a línea. 🚀",
+    "email": "diego.alfadev@gmail.com",
+    "location": "En algún lugar de Madrid, con wifi y café a mano. ☕️",
+    "phone": "+34-658 78 49 37",
+    "contact_form_action": "#",
+    "copyright": "Copyright © 2024 proudly crafted by [AlfaDev](https://github.com/diego-alfadev)"
+},
+
+  "metadata": {
+    "meta_author": "alfadev",
+    "meta_image": "/images/logo.png",
+    "meta_description": "Me llamo Diego, soy un desarrollador web fullstack y futuro creador de contenido. Conoce más sobre mí y mi trabajo en AlfaDev.",
+    "meta_keywords": ["astro", "Diego Alfaro", "alfadev", "Diego Alfaro Sáez", "portfolio", "web development", "fullstack developer"],
+    "meta_application_name": "alfadev-portfolio-site"
+  }
+}

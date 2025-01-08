@@ -1,0 +1,28 @@
+---
+import PageHeader from "@/components/core/PageHeader.astro";
+import ProjectCard from "@/components/projects/ProjectCard.astro";
+import { fillProjectEntries, type Project } from "@/content/types/entities.types";
+import Base from "@/layouts/Base.astro";
+import { getCollection, getEntry } from "astro:content";
+
+const projects_page = await getEntry("pages", "projects");
+const all_projects = await getCollection("projects")
+const fullfilled_projects: Project[] = (await fillProjectEntries(all_projects)).map((project) => project.data).sort((a, b) => {
+  return b.started_at.localeCompare(a.started_at);
+});
+
+---
+
+<Base entry_keys={["pages", "projects"]}>
+  <PageHeader page_data={projects_page?.data} />
+
+  <section class="container my-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        fullfilled_projects.map((project) => {
+          return <ProjectCard project={project} />;
+        })
+      }
+    </div>
+  </section>
+</Base>

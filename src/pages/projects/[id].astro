@@ -1,0 +1,178 @@
+---
+import Badge from "@/components/Badge.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import ImageCaroussel from "@/components/react/ImageCaroussel";
+import TechonologyBadge from "@/components/technologies/TechonologyBadge.astro";
+import { fillProjectEntries } from "@/content/types/entities.types";
+import { getLangFromUrl, useTranslate, useTranslations } from "@/i18n/utils";
+import Base from "@/layouts/Base.astro";
+import type { GetStaticPaths } from "astro";
+import { getCollection, getEntry, render } from "astro:content";
+import dayjs from "dayjs";
+
+export const getStaticPaths = (async () => {
+  const projects = await fillProjectEntries(await getCollection("projects"));
+
+  const paths = projects.map((project) => {
+    return {
+      params: {
+        id: project?.id,
+      },
+      props: {
+        project: project.data,
+      },
+    };
+  });
+  return paths;
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const translate = useTranslate(lang);
+const STRINGS = useTranslations(lang).project_details;
+
+const project_translated = await translate(project);
+
+const { Content } = await render(await getEntry("projects", project.id));
+---
+
+<Base entry_keys={["projects", "newstoyou"]}>
+  <section class="w-full h-20 relative flex-col justify-end">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <img
+            src={project_translated.logo}
+            alt={project_translated.title}
+            class="z-10 absolute bottom-[-2.5rem] px-2 rounded-full w-20 h-20 object-contain border border-white bg-white"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="py-2 flex flex-row justify-end w-full container items-center">
+    {
+      project_translated.type && (
+        <Badge
+          class={`${project_translated.type == "personal" ? "accent" : "primary"} h-6 text-white first-letter:capitalize mr-5`}
+        >
+          {project_translated.type}
+        </Badge>
+      )
+    }
+    {
+      project_translated.repo_url && (
+        <LinkButton
+          href={project_translated.repo_url}
+          mode="solid"
+          addClasses="bg-background-contrast text-background h-9 px-3 mr-5"
+          icon="_GitHub"
+          iconSize={14}
+        />
+      )
+    }
+    <LinkButton
+      href={project_translated.site_url}
+      mode="solid"
+      color="primary"
+      addClasses="h-9 px-4"
+      icon="link"
+      iconSize={14}>{STRINGS.site}</LinkButton
+    >
+  </div>
+  <section class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="mb-2">{project_translated.title}</h3>
+      </div>
+      <div
+        class="col-12 flex flex-row mb-2 text-text-secondary/70 items-center"
+      >
+        <p class="mr-4 prose text-inherit">
+          {dayjs(project_translated.started_at).format("ddd DD MMM, YYYY")}
+        </p>
+
+        {
+          project_translated.finished_at && (
+            <>
+              <span class="mr-4 text-inherit">-</span>
+              <p class="prose text-inherit">
+                {dayjs(project_translated.finished_at).format(
+                  "ddd DD MMM, YYYY"
+                )}
+              </p>
+              <p class="ml-4 prose-sm text-inherit">
+                (
+                {dayjs(project_translated.finished_at).diff(
+                  project_translated.started_at,
+                  "month"
+                )}{" "}
+                months)
+              </p>
+            </>
+          )
+        }
+      </div>
+      <div class="col-12">
+        <p class="prose text-text/80">{project_translated.short_description}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container mt-4">
+    <div class="row">
+      <div class="col-12 md:col-6">
+        <h4 class="mb-2">{STRINGS.technologies}</h4>
+        <ul class="flex flex-wrap gap-4">
+          {
+            project_translated.technologies.map((tech) => (
+              <TechonologyBadge technology={tech} />
+            ))
+          }
+        </ul>
+      </div>
+      <div class="col-12 md:col-6 flex flex-col items-end">
+        <h4 class="mb-2">{STRINGS.roles}</h4>
+        <ul class="flex flex-wrap gap-4 justify-end">
+          {
+            project_translated.tags.map((tag) => (
+              <Badge class="border border-text-secondary text-text-secondary hover:bg-background-contrast hover:text-background">
+                {tag}
+              </Badge>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="container my-8">
+    <div class="row">
+      <div class="col-12">
+        <p class="prose text-text/90 max-w-full">
+          {project_translated.description}
+        </p>
+      </div>
+    </div>
+  </section>
+  {
+    project_translated.images && (
+      <section class="container mt-4">
+        <div class="row">
+          <div class="col-12 max-h-96">
+            <ImageCaroussel
+              client:load
+              images={project_translated.images.map((i) => ({ url: i }))}
+            />
+          </div>
+        </div>
+      </section>
+    )
+  }
+  <section class="container my-16">
+    <div class="row">
+      <div class="col-12 prose text-text">
+        <Content />
+      </div>
+    </div>
+  </section>
+</Base>

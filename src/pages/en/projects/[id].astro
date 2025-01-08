@@ -1,0 +1,10 @@
+---
+import ProjectDetailPage from '@/pages/projects/[id].astro'
+import { getStaticPaths as sp} from '@/pages/projects/[id].astro';
+
+export const getStaticPaths = sp;
+
+const { project: page } = Astro.props;
+---
+
+<ProjectDetailPage project={page}/>

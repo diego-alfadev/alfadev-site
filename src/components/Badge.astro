@@ -1,0 +1,17 @@
+---
+export type Props = {
+  type?:
+    | "primary"
+    | "secondary"
+    | "success"
+    | "danger"
+    | "warning"
+    | "info"
+    | "light"
+    | "dark";
+  class?: string;
+};
+const props: Props = Astro.props;
+---
+
+<span class=`badge ${props.type} ${props.class}`><slot /></span>

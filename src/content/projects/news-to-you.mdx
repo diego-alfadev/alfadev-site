@@ -1,0 +1,97 @@
+---
+id: news-to-you
+title: "News To You"
+logo: "https://thenewstoyou.es/wp-content/uploads/2021/12/Screenshot-2021-12-02-at-12.53.48-1.png"
+description:
+  es: News To You es un sistema de clipping de prensa completo. Capta fuentes de vídeo, audio, papel y formatos digitales, los auna en una plataforma agrupados según los intereses del cliente en base al contenido de los mismos.
+  en: News To You is a complete press clipping system. It captures video, audio, paper and digital formats, unites them in a platform grouped according to the client's interests based on their content.
+short_description:
+  es: Servicio de agregación de contenido de prensa para empresas.
+  en: Press content aggregation service for companies.
+type: "professional"
+active: true
+client: News To You
+started_at: "2021-09-01T00:00:00Z"
+finished_at: "2024-11-01T00:00:00Z"
+images:
+  - "/images/projects/news-to-you/0.jpg"
+  - "/images/projects/news-to-you/mobile_0.jpeg"
+  - "/images/projects/news-to-you/mobile_1.jpeg"
+  - "/images/projects/news-to-you/mobile_2.jpeg"
+  - "/images/projects/news-to-you/mobile_3.jpeg"
+  - "/images/projects/news-to-you/1.jpg"
+  - "/images/projects/news-to-you/2.jpg"
+  - "/images/projects/news-to-you/3.jpg"
+  - "/images/projects/news-to-you/4.jpg"
+  - "/images/projects/news-to-you/5.jpg"
+  - "/images/projects/news-to-you/6.jpg"
+site_url: "https://thenewstoyou.com"
+tags:
+  - App
+  - Web
+  - Backend
+  - API
+  - DB
+  - UX/UI
+  - Design
+  - CI/CD
+  - DevOps
+technologies:
+  - nodejs
+  - react-native
+  - expo
+  - express
+  - nestjs
+  - python
+  - scrapy
+  - django
+  - postgresql
+  - mongodb
+  - redis
+  - meilisearch
+  - docker
+  - docker-compose
+---
+
+<LanguageContent>
+<section class="prose-base text-text mb-8">
+Este proyecto fué un reto para mi debido a la volatilidad de los requisitos, ya que se trataba de una startup en proceso de lanzamiento que pretendía encontrar su sitio en el mercado.
+
+Construí el stack tecnológico desde 0, principalmente centrado en NodeJS.
+
+El proyecto era muy ambicioso, captación de contenido de prensa de cualquier tipo de formato: PDF, Digital, Audio, Vídeo, Streaming e incluso documentos oficiales del estado. Todo ello estructurado, analizado y categorizado para ser servido en una arquitectura de feeds similar a la que tiene Twitter, para el consumo de usuario final (gabinetes de comunicación de empresas y profesionales) en función de condiciones complejas especificadas por ellos.
+
+Los principales retos fueron:
+- Varios formatos de periódicos (PDF) que necesitaban ser parseados, Mediante la utilización de algoritmos de OCR, page layout detection and NLP.
+- Captación de canales de video en streaming de las principales plataformas de televisión y radio.
+- Categorización del contenido de las noticias mediante NLP y un sistema de condiciones adaptado a la estructura del modelo.
+- Gestión de los datos, con una ingesta diaria de más de 150k documentos needed to be indexed.
+
+El producto empezó consistiendo de un típico stack MERN, para luego implementar mejoras con:
+- Django (ORM)
+- ManticoreDB y MeiliSearch (Search Engine)
+- Redis (Cacheo y gestión de colas)
+
+Todas estas tareas las realicé yo mismo desde 0 de forma iterativa mientras manteníamos el servicio productivo para los clientes según lo requirieron las circunstancias.
+</section>
+<section class="prose-base text-text mb-8" slot="en">
+This project was a challenge for me due to the volatility of the requirements, as it was a startup in the process of launching that aimed to find its place in the market.
+
+I built the technological stack from scratch, mainly focused on NodeJS.
+
+The project was very ambitious, capturing press content of any type of format: PDF, Digital, Audio, Video, Streaming and even official state documents. All this structured, analyzed and categorized to be served in a feed architecture similar to that of Twitter, for the consumption of the end user (communication cabinets of companies and professionals) based on complex conditions specified by them.
+
+The main challenges were:
+- Various newspaper formats (PDF) that needed to be parsed, using OCR algorithms, page layout detection and NLP.
+- Capturing video streaming channels from the main television and radio platforms.
+- Categorization of news content using NLP and a condition system adapted to the model structure.
+- Data management, with a daily intake of more than 150k documents needed to be indexed.
+
+The product started out consisting of a typical MERN stack, and then implemented improvements with:
+- Django (ORM)
+- ManticoreDB and MeiliSearch (Search Engine)
+- Redis (Caching and queue management)
+
+I carried out all these tasks myself from scratch iteratively while maintaining the productive service for the clients as required by the circumstances.
+</section>
+</LanguageContent>

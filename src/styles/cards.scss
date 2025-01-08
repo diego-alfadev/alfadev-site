@@ -1,0 +1,46 @@
+//import tailwindcss theme function to get colors
+
+.project-card {
+  @apply bg-surface px-4 py-6 rounded-xl shadow;
+  transition: background .6s cubic-bezier(.075,.82,.165,1), transform .6s cubic-bezier(.075,.82,.165,1), box-shadow .6s cubic-bezier(.075,.82,.165,1), border .1s cubic-bezier(.075,.82,.165,1);
+  & > .card-header {
+    @apply flex flex-row ;
+    & .title {
+      @apply text-2xl font-semibold;
+    }
+    & .logo {
+      @apply h-10 w-10 rounded-full mr-5 items-center justify-center flex border overflow-hidden;
+    }
+  }
+  & > .roles-content {
+    @apply my-2;
+    & > .roles {
+      @apply py-2 flex flex-row items-center space-x-2 overflow-x-scroll;
+    }
+  }
+  & > .tech-content {
+    @apply my-2;
+    & > .tech {
+      // @apply flex flex-wrap items-center space-x-1 space-y-1;
+      @apply py-2 flex flex-row items-center space-x-2 overflow-x-scroll;
+    }
+  }
+  & > .actions {
+    @apply flex items-center space-x-2;
+    & > .btn {
+      @apply rounded-full h-8 w-8 flex items-center justify-center;
+    }
+  }
+  & > .body {
+    @apply mt-4;
+  }
+  &:hover {
+    // @apply shadow-2xl shadow-background-contrast/30;
+    box-shadow: 2px 2px 1px 1px theme('colors.blue.500'), 3px 3px 1px 1px theme('colors.blue.800'), 9px 14px 18px rgba(var(--background-contrast), 0.1);
+    z-index: 1;
+    background-image: linear-gradient(100deg, rgba(var(--surface)), transparent);
+    border: 1px solid theme('colors.blue.500');
+    transform: skew(-3.142deg) rotate(-1.142deg) translateY(-10px);
+    transition: all 0.3s ease;
+  }
+}

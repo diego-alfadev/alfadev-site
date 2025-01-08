@@ -1,0 +1,26 @@
+---
+import type { Technology } from "@/content/types/entities.types";
+import { getEntry } from "astro:content";
+
+export type Props = {
+  technology: Technology;
+  animated?: boolean;
+  animationName?: string;
+};
+
+const { technology }: Props = Astro.props;
+if (!technology) throw new Error("Technology prop is required");
+let tech = technology;
+if (typeof technology == "string"){
+   const { data } = await getEntry("technologies", technology);
+    tech = data;
+}
+---
+
+<div
+  style=`background-color: ${tech.color}`
+  class=`flex flex-row items-center rounded-md px-2 py-1 hover:filter hover:brightness-110 hover:cursor-pointer ${tech.color ? "text-white": "text-text"} hover:-translate-y-2 hover:shadow-lg transition-all duration-300 ease-in-out`
+>
+  {tech.icon && <div class="w-5 h-5 mr-2" set:html={tech.icon} />}
+  <p class="text-nowrap text-xs text-inherit">{tech.name}</p>
+</div>

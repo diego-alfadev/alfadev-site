@@ -1,0 +1,9 @@
+:root {
+    --swiper-theme-color: rgba(var(--primary));
+    --swiper-pagination-color: rgba(var(--secondary)) !important;
+    --swiper-pagination-bullet-inactive-color: rgba(var(--secondary)) !important;
+    --swiper-pagination-bullet-inactive-opacity: 0.5 !important;
+    --swiper-pagination-bullet-size: 12px !important;
+    --swiper-pagination-bottom: 2px !important;
+}
+
