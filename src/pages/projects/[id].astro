@@ -33,7 +33,11 @@ const STRINGS = useTranslations(lang).project_details;
 
 const project_translated = await translate(project);
 
-const { Content } = await render(await getEntry("projects", project.id));
+const projectEntry = await getEntry("projects", project.id);
+if (!projectEntry) {
+  throw new Error(`Project entry not found: ${project.id}`);
+}
+const { Content } = await render(projectEntry);
 ---
 
 <Base entry_keys={["projects", "newstoyou"]}>

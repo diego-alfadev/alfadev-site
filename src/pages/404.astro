@@ -9,6 +9,11 @@ import { getEntry } from "astro:content";
 const lang = getLangFromUrl(Astro.url);
 const translate = useTranslate(lang);
 const entry = await getEntry("pages", "404");
+
+if (!entry) {
+  throw new Error("404 page entry not found");
+}
+
 const { Content } = await entry.render();
 ---
 

@@ -11,10 +11,14 @@ const fullfilled_projects: Project[] = (await fillProjectEntries(all_projects)).
   return b.started_at.localeCompare(a.started_at);
 });
 
+if (!projects_page) {
+  throw new Error("Projects page data not found");
+}
+
 ---
 
 <Base entry_keys={["pages", "projects"]}>
-  <PageHeader page_data={projects_page?.data} />
+  <PageHeader page_data={projects_page.data} />
 
   <section class="container my-10">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
