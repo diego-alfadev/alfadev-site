@@ -1,0 +1,75 @@
+---
+id: vivientech-scrappers
+title: "VivienTech Scrappers"
+logo: "https://images.seeklogo.com/logo-png/62/1/scrapy-logo-png_seeklogo-624518.png"
+description:
+  es: VivienTech Scrappers es un conjunto de scrappers personalizados para extraer información de diversas fuentes en línea con el fin de recopilar un índice de inmobiliarias presentes en distintas zonas de España.
+  en: VivienTech Scrappers is a set of custom scrappers to extract information from various online sources in order to compile an index of real estate agencies present in different areas of Spain.
+short_description:
+  es: Plataforma básica de scrappers para recopilación de datos de agencias inmobiliarias.
+  en: Basic scrapping for real estate agencies data collection.
+type: "professional"
+active: true
+client: VivienTech
+started_at: "2023-01-05T00:00:00Z"
+finished_at: "2024-02-10T00:00:00Z"
+tags:
+  - Web
+  - Backend
+  - API
+  - DB
+  - DevOps
+technologies:
+  - python
+  - scrapy
+  - sqlite
+  - streamlit
+  - docker
+  - docker-compose
+images:
+  - "/images/projects/vivientech-scrappers/1.jpg"
+  - "/images/projects/vivientech-scrappers/2.jpg"
+  - "/images/projects/vivientech-scrappers/3.jpg"
+---
+
+<div class="flex flex-row justify-start items-center mb-4">
+  <div class="mr-2">![python](https://img.shields.io/badge/python-3.9%2B-blue?style=flat&logo=python)</div>
+  <div class="mr-2">![scrapy](https://img.shields.io/badge/scrapy-2.x-green?style=flat&logo=scrapy)</div>
+  <div class="mr-2">![sqlite](https://img.shields.io/badge/sqlite-lightgrey?style=flat&logo=sqlite)</div>
+  <div class="mr-2">![streamlit](https://img.shields.io/badge/streamlit-1.x-orange?style=flat&logo=streamlit)</div>
+  <div>![docker](https://img.shields.io/badge/docker-%232496ED?style=flat&logo=docker&logoColor=white)</div>
+</div>
+
+<LanguageContent>
+<section class="prose-base text-text mb-8">
+Vivientech Scrappers es una colección de proyectos orientados a la extracción y gestión de datos de agencias inmobiliarias desde múltiples fuentes web.
+
+El sistema está compuesto por dos piezas principales:
+
+- Agencies Indexing: pipeline que recorre configuraciones (una hoja de Google Sheets) y ejecuta los scrapers correspondientes para poblar una base de datos SQLite con la información de agencias. Al finalizar, publica una copia de la base de datos en una hoja de Google Sheets para facilitar el acceso y la revisión.
+- Admin Panel: una aplicación web (interfaz administrativa) para visualizar KPIs, explorar los datos de la base, y ver las agencias en un mapa.
+
+Principales características:
+
+- Arquitectura modular: cada scraper está encapsulado y puede habilitarse/deshabilitarse mediante la configuración en la hoja `config` de Google Sheets.
+- Persistencia ligera: uso de SQLite para almacenamiento local y copia periódica a Google Sheets.
+- Ejecución flexible: soporta ejecución puntual, por bucle, y ejecución programada (schedule).
+- Panel administrativo para consulta y monitorización (carpeta `admin-panel`).
+
+</section>
+<section class="prose-base text-text mb-8" slot="en">
+Vivientech Scrappers is a collection of projects focused on extracting and managing real-estate agency data from multiple web sources.
+The project includes two main parts:
+
+- Agencies Indexing: a pipeline that goes through configurations (a Google Sheets sheet) and runs the corresponding scrapers to populate a SQLite database with agency information. At the end, it publishes a copy of the database to a Google Sheets sheet for easy access and review.
+- Admin Panel: a web application (admin interface) to visualize KPIs, explore the database data, and view the agencies on a map. (built with Streamlit)
+
+Key features:
+- Modular architecture: each scraper is encapsulated and can be enabled/disabled via the `config` sheet in Google Sheets.
+- Lightweight persistence: uses SQLite for local storage and periodic copy to Google Sheets.
+- Flexible execution: supports single run, looped execution, and scheduled runs.
+- Admin panel for data querying and monitoring (in `admin-panel` folder).
+
+
+</section>
+</LanguageContent>

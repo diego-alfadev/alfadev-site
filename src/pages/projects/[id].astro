@@ -71,14 +71,16 @@ const { Content } = await render(await getEntry("projects", project.id));
         />
       )
     }
+    {
+      project_translated.site_url &&
     <LinkButton
       href={project_translated.site_url}
       mode="solid"
       color="primary"
       addClasses="h-9 px-4"
       icon="link"
-      iconSize={14}>{STRINGS.site}</LinkButton
-    >
+      iconSize={14}>{STRINGS.site}</LinkButton>
+    }
   </div>
   <section class="container">
     <div class="row">
