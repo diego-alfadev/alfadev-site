@@ -40,7 +40,11 @@ if (!projectEntry) {
 const { Content } = await render(projectEntry);
 ---
 
-<Base entry_keys={["projects", "newstoyou"]}>
+<Base
+  title={project_translated.title}
+  description={project_translated.short_description}
+  image={project.meta_image}
+>
   <section class="w-full h-20 relative flex-col justify-end">
     <div class="container">
       <div class="row">

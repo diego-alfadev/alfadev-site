@@ -26,7 +26,10 @@ export default defineConfig({
   },
   integrations: [
     react(),
-    sitemap(),
+    sitemap({
+      // /es/* duplicates the unprefixed default-locale routes
+      filter: (page) => !/\/es(\/|$)/.test(new URL(page).pathname),
+    }),
     tailwind(),
     AutoImport({
       // import react components to use in mdx

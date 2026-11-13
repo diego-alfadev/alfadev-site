@@ -22,8 +22,12 @@
 
   "metadata": {
     "meta_author": "alfadev",
-    "meta_image": "/images/logo.png",
-    "meta_description": "Me llamo Diego, soy full stack engineer. Construyo producto web y mobile desde 2018 y publico herramientas open source de context engineering para agentes de IA. Conoce más sobre mí y mi trabajo en AlfaDev.",
+    "meta_image": "/images/og-default.png",
+    "meta_title": "Diego Alfaro · Full Stack Engineer",
+    "meta_description": {
+      "es": "Me llamo Diego, soy full stack engineer. Construyo producto web y mobile desde 2018 y publico herramientas open source de context engineering para agentes de IA. Conoce más sobre mí y mi trabajo en AlfaDev.",
+      "en": "I'm Diego, a full stack engineer. I have been building web and mobile products since 2018 and I publish open-source context engineering tools for AI agents. Learn more about me and my work at AlfaDev."
+    },
     "meta_keywords": ["astro", "Diego Alfaro", "alfadev", "Diego Alfaro Sáez", "portfolio", "web development", "fullstack developer"],
     "meta_application_name": "alfadev-portfolio-site"
   }

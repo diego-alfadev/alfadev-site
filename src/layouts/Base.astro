@@ -9,6 +9,8 @@ import "@/styles/main.scss";
 
 import type { PageType } from "@/content/types/page.types";
 import type { Translated } from "@/i18n/types/i18n.types";
+import social from "@/config/social.json";
+import { defaultLang, languages } from "@/i18n/locales";
 import { getLangFromUrl, getLanguageString, useTranslate } from "@/i18n/utils";
 import { AstroFont } from "astro-font";
 import { getEntry, type DataCollectionKey } from "astro:content";
@@ -104,12 +106,12 @@ const _title = title
     ? page.document_title
     : page?.title
       ? page.title
-      : config.site.title;
+      : undefined;
 const _description = description
   ? description
   : page?.meta_description
     ? page.meta_description
-    : config.metadata.meta_description;
+    : getLanguageString(config.metadata.meta_description, lang);
 const _image = image
   ? image
   : page?.meta_image
@@ -132,10 +134,36 @@ const _canonical_url = canonical_url
     : undefined;
 const _noindex =
   noindex === true ? true : page?.noindex === true ? true : false;
+
+const site_url = config.site.base_url.replace(/\/$/, "");
+const locales = Object.keys(languages) as (keyof typeof languages)[];
+const path_without_lang = Astro.url.pathname
+  .replace(new RegExp(`^/(${locales.join("|")})(?=/|$)`), "")
+  .replace(/\/$/, "");
+// The default locale is served without a prefix; /es/* is a duplicate of it.
+const localizedUrl = (locale: string) =>
+  `${site_url}${locale === defaultLang ? "" : `/${locale}`}${path_without_lang}`;
+const page_url = _canonical_url ?? localizedUrl(lang);
+
+const full_title = _title
+  ? `${plainify(getLanguageString(_title, lang))} | ${config.site.title}`
+  : `${config.metadata.meta_title} | ${config.site.title}`;
+const image_url = `${site_url}${_image}`;
+
+const person_schema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Diego Alfaro",
+  alternateName: config.site.title,
+  jobTitle: "Full Stack Engineer",
+  url: site_url,
+  image: `${site_url}/images/pfp_v2.webp`,
+  sameAs: [social.linkedin, social.github].filter(Boolean),
+};
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
@@ -201,14 +229,23 @@ const _noindex =
     </script>
 
     <!-- title -->
-    <title>
-      {plainify(getLanguageString(_title))}
-    </title>
+    <title>{full_title}</title>
 
-    <!-- canonical url -->
+    <!-- canonical url and language alternates -->
+    <link rel="canonical" href={page_url} />
     {
-      _canonical_url && (
-        <link rel="canonical" href={_canonical_url} item-prop="url" />
+      !_canonical_url &&
+        locales.map((locale) => (
+          <link rel="alternate" hreflang={locale} href={localizedUrl(locale)} />
+        ))
+    }
+    {
+      !_canonical_url && (
+        <link
+          rel="alternate"
+          hreflang="x-default"
+          href={localizedUrl(defaultLang)}
+        />
       )
     }
 
@@ -230,28 +267,33 @@ const _noindex =
     <meta name="author" content={plainify(_author)} />
 
     <!-- og-title -->
-    <meta property="og:title" content={plainify(getLanguageString(_title))} />
+    <meta property="og:title" content={full_title} />
+    <meta property="og:site_name" content={config.site.title} />
+    <meta property="og:locale" content={lang === "en" ? "en_US" : "es_ES"} />
 
     <!-- og-description -->
     <meta property="og:description" content={plainify(_description)} />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content={`${config.site.base_url}/${Astro.url.pathname.replace("/", "")}`}
-    />
+    <meta property="og:url" content={page_url} />
 
     <!-- twitter-title -->
-    <meta name="twitter:title" content={plainify(getLanguageString(_title))} />
+    <meta name="twitter:title" content={full_title} />
 
     <!-- twitter-description -->
     <meta name="twitter:description" content={plainify(_description)} />
 
     <!-- og-image -->
-    <meta property="og:image" content={`${config.site.base_url}${_image}`} />
+    <meta property="og:image" content={image_url} />
 
     <!-- twitter-image -->
-    <meta name="twitter:image" content={`${config.site.base_url}${_image}`} />
+    <meta name="twitter:image" content={image_url} />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(person_schema)}
+    />
     <script is:inline>
       const setTheme = () => {
         const theme = (() => {

@@ -55,6 +55,8 @@ export type Project = {
   finished_at?: string;
   images?: string[];
   logo?: string;
+  /** Social sharing image (og:image); raster, 1200x630 */
+  meta_image?: string;
   site_url?: string;
   repo_url?: string;
   tags: string[];
