@@ -32,7 +32,9 @@ const technologies = (await getCollection("technologies")).map(
 );
 const projects = (
   await fillProjectEntries(await getCollection("projects"))
-).map((project) => project.data);
+)
+  .map((project) => project.data)
+  .sort((a, b) => b.started_at.localeCompare(a.started_at));
 
 //@ts-ignore
 const tech_types = Object.groupBy(technologies, (item) => item.type);
@@ -99,7 +101,7 @@ const enterprises = (
                       maskImage:
                         "radial-gradient(ellipse 120% 95% at 50% 45%, black 40%, transparent 50%);",
                     }}
-                    src={"/images/pfp_v2.png"}
+                    src={"/images/pfp_v2.webp"}
                     width={350}
                     height={450}
                   />
@@ -344,28 +346,4 @@ const enterprises = (
     </div>
   </section>
 
-  <section class="container my-16 lg:mb-40">
-    <div class="row">
-      <div class="col-12">
-        <div
-          class="flex flex-col justify-center bg-yellow-300/90 px-6 py-8 rounded-xl text-center"
-        >
-          <h3 class="text-yellow-800 mb-4">
-            {
-              lang == "es"
-                ? "🚧 Este sitio está en construcción 🚧"
-                : "🚧 This site is under construction 🚧 "
-            }
-          </h3>
-          <p class="text-yellow-700 prose-xl">
-            {
-              lang == "es"
-                ? "Aún estoy trabajando en él. Puedes ver mi trabajo en los proyectos más recientes, aunque no están todos."
-                : "I'm still working on it. You can see my work in the most recent projects, although they are not all."
-            }
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
 </Base>

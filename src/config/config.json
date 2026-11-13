@@ -17,13 +17,13 @@
     "location": "En algún lugar de Madrid, con wifi y café a mano. ☕️",
     "phone": "+34-658 78 49 37",
     "contact_form_action": "#",
-    "copyright": "Copyright © 2024 proudly crafted by [AlfaDev](https://github.com/diego-alfadev)"
+    "copyright": "Copyright © 2026 proudly crafted by [AlfaDev](https://github.com/diego-alfadev)"
 },
 
   "metadata": {
     "meta_author": "alfadev",
     "meta_image": "/images/logo.png",
-    "meta_description": "Me llamo Diego, soy un desarrollador web fullstack y futuro creador de contenido. Conoce más sobre mí y mi trabajo en AlfaDev.",
+    "meta_description": "Me llamo Diego, soy full stack engineer. Construyo producto web y mobile desde 2018 y publico herramientas open source de context engineering para agentes de IA. Conoce más sobre mí y mi trabajo en AlfaDev.",
     "meta_keywords": ["astro", "Diego Alfaro", "alfadev", "Diego Alfaro Sáez", "portfolio", "web development", "fullstack developer"],
     "meta_application_name": "alfadev-portfolio-site"
   }

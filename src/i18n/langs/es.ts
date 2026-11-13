@@ -3,9 +3,9 @@ import type { UI_STRINGS } from "@/i18n/types/i18n.types";
 export const ui_strings_es: UI_STRINGS = {
   home: {
     banner: {
-      title: "Desarrollador FullStack",
+      title: "Full Stack Engineer",
       presentation:
-        "Transformando café ☕ en código e ideas en ✨realidad✨. Tu aliado tecnológico en el entorno web y mobile. ¿Tienes una idea? vamos a llevarla a cabo.",
+        "Llevo desde 2018 construyendo producto web y mobile para empresas y startups. Ahora también construyo con agentes de IA y publico en abierto las herramientas de **context engineering** que uso para ello. ¿Tienes una idea? Vamos a llevarla a cabo.",
       buttons: {
         projects: "Proyectos",
         linkedin: "LinkedIn",
@@ -31,14 +31,14 @@ export const ui_strings_es: UI_STRINGS = {
     },
     projects: {
       title: "Proyectos",
-      description: "Estos son algunos proyectos públicos en los que he trabajado. (Algunos proyectos son privados o están bajo NDA y no pueden ser compartidos).",
+      description: "Estos son algunos proyectos públicos en los que he trabajado, empezando por lo último: herramientas open source para trabajar con agentes de IA. (Algunos proyectos son privados o están bajo NDA y no pueden ser compartidos).",
     }
   },
   about: {
     about: {
       title: "¿Quien soy yo? 🤷‍♂️",
       description: [
-        "**Apasionado de la tecnología**, esa es la mejor forma de describirme.<br/> **Llevo más de 6 años tirando líneas** y cada día que pasa me gusta más lo que hago. <br/><br/> Soy del tipo de persona que disfruta viendo <u>un tutorial de programación</u> interesante <u>en lugar de una serie de Netflix</u>, y que se emociona tanto cuando descubre una nueva tecnología que <u>intenta explicarle cómo funciona hasta a su abuela.</u><br/><br/>",
+        "**Apasionado de la tecnología**, esa es la mejor forma de describirme.<br/> **Llevo más de 8 años tirando líneas** y cada día que pasa me gusta más lo que hago. <br/><br/> Soy del tipo de persona que disfruta viendo <u>un tutorial de programación</u> interesante <u>en lugar de una serie de Netflix</u>, y que se emociona tanto cuando descubre una nueva tecnología que <u>intenta explicarle cómo funciona hasta a su abuela.</u><br/><br/>",
         "Personalmente, **me encanta aprender y <u>sobre todo transmitir lo que he aprendido</u>**, por eso pretendo iniciar el mayor proyecto de mi vida, **enseñar a otros a programar**.<br/><br/> Mientras tanto, estoy buscando nuevos desafíos y oportunidades para crecer, **¿tienes un proyecto en mente? ¡Hablemos!**",
       ],
       contact_me: "Habla conmigo 🤙",
