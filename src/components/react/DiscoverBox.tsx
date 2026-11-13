@@ -32,9 +32,20 @@ function DiscoverBox(props: PropsWithChildren<DiscoverBoxProps>) {
     const clipInset = useMotionTemplate`inset(0px 0px ${clipDistance}% 0%)`
 
     React.useEffect(() => {
-        if (box_ref.current && bottom_ref.current)
-            setBoxHeight(box_ref.current?.clientHeight + (bottom_ref.current?.clientHeight * (props.underneath_factor || (1/3))))
-    }, [box_ref.current])
+        const box = box_ref.current
+        const bottom = bottom_ref.current
+        if (!box || !bottom) return
+
+        const measure = () =>
+            setBoxHeight(box.clientHeight + (bottom.clientHeight * (props.underneath_factor || (1/3))))
+
+        // The bottom image is lazy-loaded: measured before it loads, its height is 0
+        // and the closed box shows a gap instead of overlapping the two halves.
+        const observer = new ResizeObserver(measure)
+        observer.observe(box)
+        observer.observe(bottom)
+        return () => observer.disconnect()
+    }, [props.underneath_factor])
 
 
     return (
